@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.105.159.120:3306/store_management?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    hikari:
+      minimum-idle: 5 # 最小空闲连接数
+      maximum-pool-size: 10 # 最大连接数
+      connection-test-query: select 1 # 链接测试查询
+
+
+
+mybatis:
+  mapper-locations: classpath:static/mybaits/mapper/*Mapper.xml # mapper所在路径
+  configuration:
+    use-actual-param-name: true # 开启驼峰命名法
+
+server:
+  port: 80
