@@ -8,13 +8,20 @@ spring:
       minimum-idle: 5 # 最小空闲连接数
       maximum-pool-size: 10 # 最大连接数
       connection-test-query: select 1 # 链接测试查询
-
-
+  redis:
+    host: 39.105.159.120
+    port: 6379
+    database: 0
 
 mybatis:
   mapper-locations: classpath:static/mybaits/mapper/*Mapper.xml # mapper所在路径
   configuration:
-    use-actual-param-name: true # 开启驼峰命名法
+    map-underscore-to-camel-case: true  # 开启驼峰命名法
 
 server:
   port: 80
+
+logging:
+  level:
+    com.cyriii.dao: debug
+

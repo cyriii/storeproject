@@ -3,7 +3,6 @@ package com.cyriii.controller;
 import com.cyriii.common.ResultMessage;
 import com.cyriii.entity.SysUser;
 import com.cyriii.service.SysUserService;
-import com.cyriii.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,18 +15,17 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @GetMapping("/user/{id}")
-    public ResultMessage selectById(@PathVariable String id){
+    @GetMapping("/user/{userName}")
+    public ResultMessage getByUserName(@PathVariable String userName){
         ResultMessage resultMessage = new ResultMessage();
-        SysUser sysUser = sysUserService.getById(id);
+        SysUser sysUser = sysUserService.getByUserName(userName);
         resultMessage.setData(sysUser);
         return resultMessage;
     }
 
     @PostMapping("/user")
-    public ResultMessage insert(@RequestBody SysUser sysUser){
+    public ResultMessage save(@RequestBody SysUser sysUser){
         ResultMessage resultMessage = new ResultMessage();
-        sysUser.setId(UUIDUtils.getUUID());
         sysUserService.save(sysUser);
         return resultMessage;
     }
