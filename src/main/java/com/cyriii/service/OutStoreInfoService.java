@@ -3,6 +3,7 @@ package com.cyriii.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cyriii.entity.OutStoreInfo;
+import com.cyriii.entity.OutStoreInfoVO;
 import com.cyriii.entity.PageVO;
 
 public interface OutStoreInfoService extends IService<OutStoreInfo> {
@@ -13,5 +14,5 @@ public interface OutStoreInfoService extends IService<OutStoreInfo> {
 
     boolean removeOutStoreInfoById(String id) throws Exception;
 
-    IPage<OutStoreInfo> page(PageVO page);
+    IPage<OutStoreInfoVO> page(PageVO page);
 }

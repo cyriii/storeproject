@@ -13,7 +13,6 @@ public class ResultMessage {
     public static final String SUCCESS_CODE = "000000";
     public static final String ERROR_CODE = "000001";
 
-
     /**
      * 返回状态码
      */
@@ -33,6 +32,5 @@ public class ResultMessage {
      * 返回提示信息
      */
     private String message;
-
 
 }

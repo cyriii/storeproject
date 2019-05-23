@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyriii.dao.InStoreInfoDao;
 import com.cyriii.entity.InStoreInfo;
+import com.cyriii.entity.InStoreInfoVO;
 import com.cyriii.entity.PageVO;
 import com.cyriii.entity.StoreInfo;
 import com.cyriii.service.InStoreInfoService;
@@ -21,6 +22,9 @@ import java.util.Date;
 
 @Service
 public class InStoreInfoServiceImpl extends ServiceImpl<InStoreInfoDao, InStoreInfo> implements InStoreInfoService {
+
+    @Autowired
+    private InStoreInfoDao inStoreInfoDao;
 
     @Autowired
     private UserUtils userUtils;
@@ -133,10 +137,8 @@ public class InStoreInfoServiceImpl extends ServiceImpl<InStoreInfoDao, InStoreI
     }
 
     @Override
-    public IPage<InStoreInfo> page(PageVO page){
-        QueryWrapper<InStoreInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userUtils.currentUserId());
-        queryWrapper.orderByDesc("create_date");
-        return super.page(new Page<>(page.getCurrent(), page.getSize()), queryWrapper);
+    public IPage<InStoreInfoVO> page(PageVO page){
+        page.getParams().put("userId",userUtils.currentUserId());
+        return inStoreInfoDao.page(new Page<>(page.getCurrent(), page.getSize()), page.getParams());
     }
 }

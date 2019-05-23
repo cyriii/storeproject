@@ -3,6 +3,7 @@ package com.cyriii.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cyriii.common.ResultMessage;
 import com.cyriii.entity.InStoreInfo;
+import com.cyriii.entity.InStoreInfoVO;
 import com.cyriii.entity.PageVO;
 import com.cyriii.service.InStoreInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class InStoreInfoController {
     @PostMapping("/store/ins")
     public ResultMessage page(@RequestBody PageVO page){
         ResultMessage resultMessage = new ResultMessage();
-        IPage<InStoreInfo> ipage = inStoreInfoService.page(page);
+        IPage<InStoreInfoVO> ipage = inStoreInfoService.page(page);
         resultMessage.setData(ipage);
         return resultMessage;
     }
