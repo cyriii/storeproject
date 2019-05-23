@@ -1,13 +1,17 @@
 package com.cyriii.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.util.Date;
 
 /**
  * 客户信息
  */
 @Data
 @Accessors(chain = true)
+@TableName("customer_info")
 public class CustomerInfo {
 
     private String id;
@@ -41,4 +45,14 @@ public class CustomerInfo {
      * 备注
      */
     private String remark;
+
+    /**
+     * 所属用户
+     */
+    private String userId;
+
+    /**
+     * 创建时间
+     */
+    private Date createDate;
 }

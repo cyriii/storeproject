@@ -1,20 +1,27 @@
 package com.cyriii.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cyriii.common.ResultMessage;
 import com.cyriii.entity.CustomerInfo;
+import com.cyriii.entity.PageVO;
 import com.cyriii.service.CustomerInfoService;
-import com.cyriii.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+/**
+ * 客户信息
+ */
 @RestController
 public class CustomerInfoController {
 
     @Autowired
     private CustomerInfoService customerInfoService;
 
+    /**
+     * 根据ID查询客户信息
+     * @param id
+     * @return
+     */
     @GetMapping("/customer/{id}")
     public ResultMessage getById(@PathVariable String id){
         ResultMessage resultMessage = new ResultMessage();
@@ -23,33 +30,45 @@ public class CustomerInfoController {
         return resultMessage;
     }
 
-    @GetMapping("/customers")
-    public ResultMessage list(){
+    /**
+     * 查询列表
+     * @return
+     */
+    @PostMapping("/customers")
+    public ResultMessage page(@RequestBody PageVO page){
         ResultMessage resultMessage = new ResultMessage();
-        List<CustomerInfo> customerInfoList= customerInfoService.list();
+        IPage<CustomerInfo> customerInfoList= customerInfoService.page(page);
         resultMessage.setData(customerInfoList);
         return resultMessage;
     }
 
+    /**
+     * 新增
+     * @param customerInfo
+     * @return
+     */
     @PostMapping("/customer")
-    public ResultMessage insert(@RequestBody CustomerInfo customerInfo){
+    public ResultMessage save(@RequestBody CustomerInfo customerInfo){
         ResultMessage resultMessage = new ResultMessage();
-        customerInfo.setId(UUIDUtils.getUUID());
         customerInfoService.save(customerInfo);
         return resultMessage;
     }
 
     @PutMapping("/customer")
-    public ResultMessage update(@RequestBody CustomerInfo customerInfo){
+    public ResultMessage updateById(@RequestBody CustomerInfo customerInfo){
         ResultMessage resultMessage = new ResultMessage();
         customerInfoService.updateById(customerInfo);
         return resultMessage;
     }
 
     @DeleteMapping("/customer/{id}")
-    public ResultMessage deleteById(@PathVariable String id){
+    public ResultMessage removeById(@PathVariable String id){
         ResultMessage resultMessage = new ResultMessage();
-        customerInfoService.removeById(id);
+        try {
+            customerInfoService.removeById(id);
+        } catch (Exception e) {
+            resultMessage.setCode(ResultMessage.ERROR_CODE).setMessage(e.getMessage());
+        }
         return resultMessage;
     }
 

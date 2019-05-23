@@ -6,6 +6,9 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 入库信息
+ */
 @Data
 @Accessors(chain = true)
 public class InStoreInfo {
@@ -36,6 +39,16 @@ public class InStoreInfo {
      * 进货日期
      */
     private Date supplyDate;
+
+    /**
+     * 所属用户id
+     */
+    private String userId;
+
+    /**
+     * 创建时间
+     */
+    private Date createDate;
 
 
 }

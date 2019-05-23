@@ -1,13 +1,12 @@
 package com.cyriii.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cyriii.common.ResultMessage;
+import com.cyriii.entity.PageVO;
 import com.cyriii.entity.SupplierInfo;
 import com.cyriii.service.SupplierInfoService;
-import com.cyriii.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class SupplierController {
@@ -23,33 +22,36 @@ public class SupplierController {
         return resultMessage;
     }
 
-    @GetMapping("/suppliers")
-    public ResultMessage list(){
+    @PostMapping("/suppliers")
+    public ResultMessage list(@RequestBody PageVO page){
         ResultMessage resultMessage = new ResultMessage();
-        List<SupplierInfo> customerInfoList= supplierInfoService.list();
-        resultMessage.setData(customerInfoList);
+        IPage<SupplierInfo> iPage = supplierInfoService.page(page);
+        resultMessage.setData(iPage);
         return resultMessage;
     }
 
     @PostMapping("/supplier")
-    public ResultMessage insert(@RequestBody SupplierInfo supplierInfo){
+    public ResultMessage save(@RequestBody SupplierInfo supplierInfo){
         ResultMessage resultMessage = new ResultMessage();
-        supplierInfo.setId(UUIDUtils.getUUID());
         supplierInfoService.save(supplierInfo);
         return resultMessage;
     }
 
     @PutMapping("/supplier")
-    public ResultMessage update(@RequestBody SupplierInfo supplierInfo){
+    public ResultMessage updateById(@RequestBody SupplierInfo supplierInfo){
         ResultMessage resultMessage = new ResultMessage();
         supplierInfoService.updateById(supplierInfo);
         return resultMessage;
     }
 
     @DeleteMapping("/supplier/{id}")
-    public ResultMessage deleteById(@PathVariable String id){
+    public ResultMessage removeById(@PathVariable String id){
         ResultMessage resultMessage = new ResultMessage();
-        supplierInfoService.removeById(id);
+        try {
+            supplierInfoService.removeById(id);
+        } catch (Exception e) {
+            resultMessage.setCode(ResultMessage.ERROR_CODE).setMessage(e.getMessage());
+        }
         return resultMessage;
     }
 

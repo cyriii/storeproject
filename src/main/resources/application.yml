@@ -15,8 +15,8 @@ spring:
 
 mybatis:
   mapper-locations: classpath:static/mybaits/mapper/*Mapper.xml # mapper所在路径
-  configuration:
-    map-underscore-to-camel-case: true  # 开启驼峰命名法
+#  configuration:
+#    map-underscore-to-camel-case: true  # 开启驼峰命名法
 
 server:
   port: 80
