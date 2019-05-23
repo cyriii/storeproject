@@ -49,7 +49,9 @@ public class CustomWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler)
                 .and()
-                .authorizeRequests().antMatchers("/login").permitAll()
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()  // 登录接口
+                .antMatchers("/register").permitAll()   // 注册接口
                 .anyRequest().authenticated();
     }
 }

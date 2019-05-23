@@ -23,7 +23,12 @@ public class SysUserController {
         return resultMessage;
     }
 
-    @PostMapping("/user")
+    /**
+     * 注册
+     * @param sysUser
+     * @return
+     */
+    @PostMapping("/register")
     public ResultMessage save(@RequestBody SysUser sysUser){
         ResultMessage resultMessage = new ResultMessage();
         sysUserService.save(sysUser);
