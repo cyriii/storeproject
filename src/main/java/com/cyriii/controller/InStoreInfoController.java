@@ -1,7 +1,6 @@
 package com.cyriii.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cyriii.common.ResultMessage;
 import com.cyriii.entity.InStoreInfo;
 import com.cyriii.entity.PageVO;
@@ -29,14 +28,14 @@ public class InStoreInfoController {
     @PostMapping("/store/in")
     public ResultMessage save(@RequestBody InStoreInfo inStoreInfo){
         ResultMessage resultMessage = new ResultMessage();
-        inStoreInfoService.save(inStoreInfo);
+        inStoreInfoService.saveInStoreInfo(inStoreInfo);
         return resultMessage;
     }
 
     @PostMapping("/store/ins")
     public ResultMessage page(@RequestBody PageVO page){
         ResultMessage resultMessage = new ResultMessage();
-        IPage<InStoreInfo> ipage = inStoreInfoService.page(new Page<>(page.getCurrent(), page.getSize()));
+        IPage<InStoreInfo> ipage = inStoreInfoService.page(page);
         resultMessage.setData(ipage);
         return resultMessage;
     }
@@ -44,15 +43,22 @@ public class InStoreInfoController {
     @PutMapping("/store/in")
     public ResultMessage updateById(@RequestBody InStoreInfo inStoreInfo){
         ResultMessage resultMessage = new ResultMessage();
-        inStoreInfoService.updateById(inStoreInfo);
+        try {
+            inStoreInfoService.updateInStoreInfoById(inStoreInfo);
+        } catch (Exception e) {
+            resultMessage.setCode(ResultMessage.ERROR_CODE).setMessage(e.getMessage());
+        }
         return resultMessage;
     }
-
 
     @DeleteMapping("/store/in/{id}")
     public ResultMessage removeById(@PathVariable String id){
         ResultMessage resultMessage = new ResultMessage();
-        inStoreInfoService.removeById(id);
+        try {
+            inStoreInfoService.removeInStoreInfoById(id);
+        } catch (Exception e) {
+            resultMessage.setCode(ResultMessage.ERROR_CODE).setMessage(e.getMessage());
+        }
         return resultMessage;
     }
 

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyriii.dao.SupplierInfoDao;
-import com.cyriii.entity.GoodInfo;
 import com.cyriii.entity.InStoreInfo;
 import com.cyriii.entity.PageVO;
 import com.cyriii.entity.SupplierInfo;

@@ -1,12 +1,13 @@
 package com.cyriii.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyriii.dao.CustomerInfoDao;
-import com.cyriii.entity.*;
+import com.cyriii.entity.CustomerInfo;
+import com.cyriii.entity.OutStoreInfo;
+import com.cyriii.entity.PageVO;
 import com.cyriii.service.CustomerInfoService;
 import com.cyriii.service.OutStoreInfoService;
 import com.cyriii.utils.UUIDUtils;
