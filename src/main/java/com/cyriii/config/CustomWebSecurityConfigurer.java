@@ -46,7 +46,7 @@ public class CustomWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)     // 设置jwt拦截
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler)
                 .and()
                 .authorizeRequests()
@@ -54,4 +54,5 @@ public class CustomWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()   // 注册接口
                 .anyRequest().authenticated();
     }
+
 }

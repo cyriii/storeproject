@@ -1,10 +1,10 @@
 package com.cyriii.config;
 
+import com.cyriii.entity.LoginUserDetails;
 import com.cyriii.entity.SysUser;
 import com.cyriii.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +29,13 @@ public class CustomUserDeatilService implements UserDetailsService {
             throw new UsernameNotFoundException("not found");
         }
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-        UserDetails userDetails = new User(sysUser.getUserName(),sysUser.getPwd(), grantedAuthorityList);
+        LoginUserDetails userDetails = new LoginUserDetails(sysUser.getUserName(),sysUser.getPwd(), grantedAuthorityList);
+        userDetails
+                .setUserId(sysUser.getId())
+                .setNickName(sysUser.getNickName())
+                .setSex(sysUser.getSex())
+                .setTelNumber(sysUser.getTelNumber())
+                .setAddress(sysUser.getAddress());
         return userDetails;
     }
 

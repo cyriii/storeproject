@@ -8,6 +8,9 @@ import com.cyriii.service.SupplierInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 供货商信息
+ */
 @RestController
 public class SupplierController {
 

@@ -28,8 +28,7 @@ public class UserUtils {
             return null;
         }
         Map<String, String> map = JWTUtils.verifyToken(token);
-        String userId = stringRedisTemplate.opsForValue().get(RedisPrefix.USER_ID + map.get("userName"));
-        return userId;
+        return map.get("userId");
     }
 
 

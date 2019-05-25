@@ -2,10 +2,12 @@ package com.cyriii.config;
 
 import com.cyriii.common.RedisPrefix;
 import com.cyriii.common.ResultMessage;
-import com.cyriii.service.SysUserService;
+import com.cyriii.entity.LoginUserDetails;
+import com.cyriii.entity.SysUserVO;
 import com.cyriii.utils.JWTUtils;
 import com.cyriii.utils.UUIDUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
@@ -32,29 +34,27 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Autowired
-    private SysUserService sysUserService;
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         // 登录成功返回信息
         ResultMessage resultMessage = new ResultMessage();
 
-        Map<String, Object> dataMap = new HashMap<>();
+        LoginUserDetails userDetails = (LoginUserDetails) authentication.getPrincipal();
+        SysUserVO userVO = new SysUserVO();
+        BeanUtils.copyProperties(userDetails, userVO);
 
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("userName", authentication.getName());
-        String uuid = UUIDUtils.getUUID();
-        tokenMap.put("uuid", uuid);
+        tokenMap.put("userId", userDetails.getUserId());
+        tokenMap.put("userName", userDetails.getUsername());
+        tokenMap.put("uuid", UUIDUtils.getUUID());
         String token = JWTUtils.createToken(tokenMap);
 
         // 将token缓存进redis中
         stringRedisTemplate.opsForValue().set(RedisPrefix.TOKEN + authentication.getName(), token, 2, TimeUnit.HOURS);  // 过期时间设置为2小时，可以写入配置文件中获取
-        stringRedisTemplate.opsForValue().set(RedisPrefix.USER_ID + authentication.getName(), sysUserService.getIdByUserName(authentication.getName()), 2, TimeUnit.HOURS);   // 将用户id缓存进redis
 
-        dataMap.put("token", token);
-        resultMessage.setData(dataMap);
-        httpServletResponse.setContentType("application/json");
+        userVO.setToken(token);
+        resultMessage.setData(userVO);
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
         httpServletResponse.getWriter().write(objectMapper.writeValueAsString(resultMessage));
     }
 }
