@@ -3,6 +3,7 @@ package com.cyriii.entity;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 入库信息
@@ -46,5 +47,10 @@ public class InStoreInfoVO {
      * 单位
      */
     private String unit;
+
+    /**
+     * 入库日期
+     */
+    private Date supplyDate;
 
 }

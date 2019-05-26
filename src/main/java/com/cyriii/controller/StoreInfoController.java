@@ -15,7 +15,7 @@ public class StoreInfoController {
     @Autowired
     private StoreInfoService storeInfoService;
 
-    @PostMapping("/store")
+    @PostMapping("/stores")
     public ResultMessage page(PageVO page){
         ResultMessage resultMessage = new ResultMessage();
         IPage<StoreInfoVO> iPage = storeInfoService.page(page);

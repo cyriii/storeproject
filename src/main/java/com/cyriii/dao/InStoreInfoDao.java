@@ -15,7 +15,7 @@ import java.util.Map;
 public interface InStoreInfoDao extends BaseMapper<InStoreInfo> {
 
     @Select({"<script> ",
-            "SELECT a.id,a.supply_num,a.supply_univalence,b.name AS supplier_name,b.link_man,b.tel_number,c.name as good_name,c.unit ",
+            "SELECT a.id,a.supply_num,a.supply_univalence,a.supply_date,b.name AS supplier_name,b.link_man,b.tel_number,c.name as good_name,c.unit ",
             "FROM in_store_info a LEFT JOIN supplier_info b ON a.supplier_id = b.id LEFT JOIN good_info c ON a.good_id = c.id ",
             "<where>",
                 "a.user_id = #{entity.userId, jdbcType=VARCHAR} ",
