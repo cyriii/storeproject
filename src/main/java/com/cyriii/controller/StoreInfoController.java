@@ -7,6 +7,7 @@ import com.cyriii.entity.StoreInfoVO;
 import com.cyriii.service.StoreInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +17,7 @@ public class StoreInfoController {
     private StoreInfoService storeInfoService;
 
     @PostMapping("/stores")
-    public ResultMessage page(PageVO page){
+    public ResultMessage page(@RequestBody PageVO page){
         ResultMessage resultMessage = new ResultMessage();
         IPage<StoreInfoVO> iPage = storeInfoService.page(page);
         resultMessage.setData(iPage);

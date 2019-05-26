@@ -16,15 +16,15 @@ import java.util.Map;
 public interface StoreInfoDao extends BaseMapper<StoreInfo> {
 
     @Select({"<script> ",
-            "SELECT a.id,a.store_num,b.name AS good_name,b.unit as good_unit",
+            "SELECT a.id,a.store_num,b.name AS good_name,b.unit as good_unit ",
             "FROM store_info a LEFT JOIN good_info b ON a.good_id = b.id ",
             "<where>",
             "b.user_id = #{entity.userId, jdbcType=VARCHAR} ",
             "<if test=\"entity != null and entity.name != null and entity.name != ''\">",
-            "and (b.name like concat(\"%\", #{entity.name,jdbcType=VARCHAR},\"%\")",
+            "and b.name like concat(\"%\", #{entity.name,jdbcType=VARCHAR},\"%\") ",
             "</if>",
             "</where>",
-            "order by b.name",
+            "order by b.name ",
             "</script>"
     })
     IPage<StoreInfoVO> page(Page page, @Param("entity") Map<String, Object> params);
