@@ -2,9 +2,12 @@ package com.cyriii.controller;
 
 import com.cyriii.common.ResultMessage;
 import com.cyriii.entity.SysUser;
+import com.cyriii.entity.SysUserVO;
 import com.cyriii.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * 用户信息
@@ -15,11 +18,11 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @GetMapping("/user/{userName}")
-    public ResultMessage getByUserName(@PathVariable String userName){
+    @GetMapping("/user")
+    public ResultMessage getCurrentUser(){
         ResultMessage resultMessage = new ResultMessage();
-        SysUser sysUser = sysUserService.getByUserName(userName);
-        resultMessage.setData(sysUser);
+        SysUserVO sysUserVO = sysUserService.getCurrentUser();
+        resultMessage.setData(sysUserVO);
         return resultMessage;
     }
 
@@ -36,9 +39,20 @@ public class SysUserController {
     }
 
     @PutMapping("/user")
-    public ResultMessage update(@RequestBody SysUser sysUser){
+    public ResultMessage update(@RequestBody SysUserVO sysUserVO){
         ResultMessage resultMessage = new ResultMessage();
-        sysUserService.updateById(sysUser);
+        sysUserService.updateById(sysUserVO);
+        return resultMessage;
+    }
+
+    @PostMapping("/user/changepwd")
+    public ResultMessage changePwd(@RequestBody Map<String, Object> params){
+        ResultMessage resultMessage = new ResultMessage();
+        try {
+            sysUserService.changePwd(params);
+        } catch (Exception e) {
+            resultMessage.setCode(ResultMessage.ERROR_CODE).setMessage(e.getMessage());
+        }
         return resultMessage;
     }
 

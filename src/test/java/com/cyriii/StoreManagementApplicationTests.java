@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
@@ -42,11 +43,13 @@ public class StoreManagementApplicationTests {
 
     @Test
     public void inStoreInfoDeme(){
-        Map<String, Object> params = new HashMap<>();
-        params.put("userId", "65a16152ff2043d8a558d7086eba9e13");
-        params.put("name", "火龙果");
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("userId", "65a16152ff2043d8a558d7086eba9e13");
+//        params.put("name", "火龙果");
+//
+//        IPage<InStoreInfoVO> iPage = inStoreInfoDao.page(new Page<>(1, 2), params);
+//        System.out.println(iPage.getRecords());
 
-        IPage<InStoreInfoVO> iPage = inStoreInfoDao.page(new Page<>(1, 2), params);
-        System.out.println(iPage.getRecords());
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
     }
 }
