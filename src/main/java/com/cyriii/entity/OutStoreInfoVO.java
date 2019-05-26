@@ -3,6 +3,7 @@ package com.cyriii.entity;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 出库信息
@@ -46,4 +47,9 @@ public class OutStoreInfoVO {
      * 单位
      */
     private String unit;
+
+    /**
+     *
+     */
+    private Date demandDate;
 }

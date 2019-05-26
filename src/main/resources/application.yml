@@ -12,6 +12,9 @@ spring:
     host: 39.105.159.120
     port: 6379
     database: 0
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
 
 mybatis:
   mapper-locations: classpath:static/mybaits/mapper/*Mapper.xml # mapper所在路径
