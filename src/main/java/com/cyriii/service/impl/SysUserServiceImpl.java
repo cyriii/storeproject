@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyriii.dao.SysUserDao;
 import com.cyriii.entity.SysUser;
 import com.cyriii.entity.SysUserVO;
+import com.cyriii.exception.StoreException;
 import com.cyriii.service.SysUserService;
 import com.cyriii.utils.UUIDUtils;
 import com.cyriii.utils.UserUtils;
@@ -44,11 +45,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     }
 
     @Override
-    public boolean save(SysUser entity) {
+    public boolean saveSysUser(SysUser entity) throws StoreException {
         // 查询用户名是否存在
         SysUser sysUser = getByUserName(entity.getUserName());
         if(sysUser != null){
-            return false;   // 抛出异常
+            throw new StoreException("用户名已存在");
         }
         entity.setId(UUIDUtils.getUUID());
         // 对密码进行加密

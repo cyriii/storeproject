@@ -3,6 +3,7 @@ package com.cyriii.controller;
 import com.cyriii.common.ResultMessage;
 import com.cyriii.entity.SysUser;
 import com.cyriii.entity.SysUserVO;
+import com.cyriii.exception.StoreException;
 import com.cyriii.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,11 @@ public class SysUserController {
     @PostMapping("/register")
     public ResultMessage save(@RequestBody SysUser sysUser){
         ResultMessage resultMessage = new ResultMessage();
-        sysUserService.save(sysUser);
+        try {
+            sysUserService.saveSysUser(sysUser);
+        } catch (StoreException e) {
+            resultMessage.setCode(ResultMessage.ERROR_CODE).setMessage(e.getMessage());
+        }
         return resultMessage;
     }
 
